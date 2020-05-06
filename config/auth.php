@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'user',
         'passwords' => 'users',
     ],
 
@@ -40,11 +40,19 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-
+        
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
-            'hash' => false,
+        ],
+        // 以下を追加
+        'user' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
         ],
     ],
 
@@ -68,8 +76,13 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\User::class,
+            'model' => App\Models\User::class,
         ],
+        //以下を追加
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
+            ],
 
         // 'users' => [
         //     'driver' => 'database',
@@ -98,6 +111,12 @@ return [
             'table' => 'password_resets',
             'expire' => 60,
         ],
+        
+        //以下を追記
+        'admins' => [
+        'provider' => 'admins',
+        'table' => 'password_resets',
+        'expire' => 60,
     ],
-
+    ],
 ];
