@@ -4,7 +4,7 @@
         {!! Form::open(['url' => '/BBS/regist', 'method' => 'post', 'files' => true]) !!}
          <ul class="site link">
              <li class="prelink">
-                 <a title="戻る" href="https://cd6656c516b04052a08d8359f18eface.vfs.cloud9.us-east-2.amazonaws.com/admin/game/create">戻る</a>
+                 <a title="戻る" href="https://cd6656c516b04052a08d8359f18eface.vfs.cloud9.us-east-2.amazonaws.com/">戻る</a>
              </li>
          </ul>
             <div class="form-group">

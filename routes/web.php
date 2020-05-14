@@ -11,22 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index')->name('home');
+    
 
 //ゲーム機能 画面
 
-Route::group(['prefix' => 'admin'], function () {
-    Route::get('game/create', 'Admin\GameController@add')->middleware('auth'); //スタート画面
-    Route::get('game/method', 'Admin\GameController@method')->middleware('auth'); //操作説明
-    Route::get('game/start', 'Admin\GameController@start')->middleware('auth');
-    Route::get('game/gameover', 'Admin\GameController@gameover')->middleware('auth');
-    Route::get('game/clear', 'Admin\GameController@clear')->middleware('auth');
-});
-
-    Route::get('game/register', 'Admin\GameController@register')->middleware('auth');//ユーザー登録
-    Route::get('game/login', 'Admin\GameController@login')->middleware('auth');//ログイン画面
+    Route::get('game', 'GameController@add'); //スタート画面
+    Route::get('game/method', 'GameController@method');
+ 
 
 // ゲーム機能　ステータス
 
@@ -65,10 +57,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 // マルチ認証
 Route::group(['prefix' => 'admin'], function () {
     // AdminHome
-    Route::get('home', 'Admin\HomeController@index')->name('admin.home');
-    //login&logout
     Route::get('login', 'Admin\LoginController@showLoginForm')->name('admin.login');
     Route::post('login', 'Admin\LoginController@login')->name('admin.login');
+    
+    Route::get('/', 'Admin\HomeController@index')->name('admin.home');
     Route::post('logout', 'Admin\LoginController@logout')->name('admin.logout');
 });
 
