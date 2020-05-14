@@ -27,5 +27,13 @@
             </li>
         </ul>
          <input type="button" onclick="location.href='https://cd6656c516b04052a08d8359f18eface.vfs.cloud9.us-east-2.amazonaws.com/admin/game/create'" value="タイトルに戻る">
+         <div align="right">
+                <audio src="{{ asset('/bgm/bgm_maoudamashii_healing13.mp3') }}" controls></audio>
+                </div>
     </body>
+        <footer>
+    <div align="center">
+    <p>&copy; 2020 Legacy System</p>
+    </div>
+    </footer>
 </html>

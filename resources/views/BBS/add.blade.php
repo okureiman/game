@@ -24,5 +24,5 @@
         {!! Form::close() !!}
     @endsection
     @section('footer')
-    &copy; 2020 laravel project.
+    &copy; 2020 Legacy System.
     @endsection
