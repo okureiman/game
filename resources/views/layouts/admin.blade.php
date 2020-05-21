@@ -31,7 +31,7 @@
             {{-- 画面上部に表示するナビゲーションバーです。 --}}
             <nav class="navbar navbar-expand-md">
                 <div class="container">
-                    <a class="navbar-brand" href="{{ url('https://cd6656c516b04052a08d8359f18eface.vfs.cloud9.us-east-2.amazonaws.com/admin/game/create') }}">
+                    <a class="navbar-brand" href="{{ url('https://cd6656c516b04052a08d8359f18eface.vfs.cloud9.us-east-2.amazonaws.com') }}">
                         {{ config('', 'Legacy System') }}
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,10 +47,10 @@
                         <!-- Right Side Of Navbar -->
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item">
-                                <a class="nav-link" href="https://cd6656c516b04052a08d8359f18eface.vfs.cloud9.us-east-2.amazonaws.com/admin/game/login">ログイン</a>
+                                <a class="nav-link" href="https://cd6656c516b04052a08d8359f18eface.vfs.cloud9.us-east-2.amazonaws.com/game/login">ログイン</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="https://cd6656c516b04052a08d8359f18eface.vfs.cloud9.us-east-2.amazonaws.com/admin/game/register">ユーザー登録</a>
+                                <a class="nav-link" href="https://cd6656c516b04052a08d8359f18eface.vfs.cloud9.us-east-2.amazonaws.com/game/register">ユーザー登録</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="https://cd6656c516b04052a08d8359f18eface.vfs.cloud9.us-east-2.amazonaws.com/BBS/add">問い合わせ</a>

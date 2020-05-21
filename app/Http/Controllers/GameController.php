@@ -9,30 +9,30 @@ class GameController extends Controller
 {
     public function add()
     {
-        return view('admin.game.create');
+        return view('game.create');
     }
     public function method()
     {
-        return view('admin.game.method');
+        return view('game.method');
     }
     public function start()
     {
-        return view('admin.game.start');
+        return view('game.start');
     }
     public function gameover()
     {
-        return view('admin.game.gameover');
+        return view('game.gameover');
     }
     public function clear()
     {
-        return view('admin.game.clear');
+        return view('game.clear');
     }
     public function register()
     {
-        return view('admin.game.register');
+        return view('game.register');
     }
     public function login()
     {
-        return view('admin.game.login');
+        return view('game.login');
     }
 }

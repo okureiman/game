@@ -23,7 +23,7 @@ class ResponseHeader
         //クリックジャッキング対策
         $responce->header('X-Frame-Options', 'DENY');
          
-        //意図しない文字コード対策
+        //意図しないXSS（文字コード）対策
         $responce->header('Content-Type', 'charset=UTF-8');
         return $responce;
     }

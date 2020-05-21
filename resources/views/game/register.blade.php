@@ -11,7 +11,7 @@
                 <div class="card-header">ユーザー登録</div>
 
                 <div class="card-body">
-                    <form method="POST" action="https://cd6656c516b04052a08d8359f18eface.vfs.cloud9.us-east-2.amazonaws.com/admin/game/create">
+                    <form method="POST" action="https://cd6656c516b04052a08d8359f18eface.vfs.cloud9.us-east-2.amazonaws.com">
                         @csrf
                         <input type="hidden" name="_token" value="kg8UV9eLT55EH19kTEUHXzCoDlNnjeNJW144pNTy">
                         <div class="form-group row">

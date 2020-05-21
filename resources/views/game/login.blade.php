@@ -15,9 +15,9 @@
                 <div class="card">
                     <div class="card-header">ログイン</div>
                     <div class="card-body">
-                        <form method="POST" action="https://cd6656c516b04052a08d8359f18eface.vfs.cloud9.us-east-2.amazonaws.com/admin/game/create">
+                        <form method="POST" action="https://cd6656c516b04052a08d8359f18eface.vfs.cloud9.us-east-2.amazonaws.com/">
                             @csrf
-                            <input type="hidden" name="_token" value="HD7MLoCXN7xxX28qymB0fzvPwISKGnHkYCFx8ZUY">
+                            <input type="hidden" name="_token" value="">
                             <div class="form-group row">
                                 <label for="name" class="col-md-4 col-form-lavel text-md-right">名前</label>
                                 <div class="col-md-6">
