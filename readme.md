@@ -16,21 +16,21 @@
 
 ## 開発環境
 
-・Laravel　5.8.37
-・PHP  7.2.24
-・composer　1.10.1
+- [Laravel　5.8.37]
+- [PHP  7.2.24]
+- [composer　1.10.1]
 
 ## 各種機能＆導入技術
 
-- データベース（MySQL）
-・デプロイ（heroku）
-・マルチログイン
-・問い合わせページ
-・ゲーム部分(JavaScript)
-・セキュリティ機能（Laravel）
-　→キャッシュコントロール対策、クリックジャッキング対策、XSS(文字コード)対策
-・エラー画面（Laravel）
-・通知機能（Incoming WebHooks、Slack）　
+- [データベース（MySQL]
+- [デプロイ（heroku]
+- [マルチログイン]
+- [問い合わせページ]
+- [ゲーム部分(JavaScript)]
+- [セキュリティ機能（Laravel]
+　 →キャッシュコントロール対策、クリックジャッキング対策、XSS(文字コード)対策
+- [エラー画面（Laravel）]
+- [通知機能（Incoming WebHooks、Slack）]
 
 
 ## トップページ
