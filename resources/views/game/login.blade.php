@@ -15,7 +15,8 @@
                 <div class="card">
                     <div class="card-header">ログイン</div>
                     <div class="card-body">
-                        <form method="POST" action="https://cd6656c516b04052a08d8359f18eface.vfs.cloud9.us-east-2.amazonaws.com/">
+                          <form action="{{ action('\GameController@login') }}" method="post" enctype="multipart/form-data">
+">
                             @csrf
                             <input type="hidden" name="_token" value="">
                             <div class="form-group row">

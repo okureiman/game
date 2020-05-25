@@ -3,6 +3,9 @@
 @section('title', 'スタート画面')
 
 @section('content')
+<link rel="shortcut icon" href="{{ asset('/favicon.ico') }}">
+<meta name="description" content="Legacy SystemはJavaScriptのドラクエ風の戦闘シュミレーターです。"><!--contentの説明文は120字まで-->
+
     <div class="container">
         <div class="row">
             <div class="col-md-8 mx-auto">

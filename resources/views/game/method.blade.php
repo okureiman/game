@@ -1,15 +1,18 @@
-<!DOCTYPE html>
+@extends('layouts.admin')
+
+@section('content')
 <html lang="ja">
     <head>
         <meta charset="utf-8">
         <title>遊び方</title>
     </head>
     <body>
-        <h1 sytle="text-align: center">遊び方</h1>
+        <h1 sytle="text-align: center"><font color="#F8F8FF">遊び方</h1>
         <ul class="rule">
             <p>
                 
             </p>
+            <font color="#F8F8FF">
             <li>
                 ゲーム開始： 「ゲーム開始」ボタンをクリック
             </li>
@@ -33,7 +36,9 @@
     </body>
         <footer>
     <div align="center">
+    <font size="4" color="#F8F8FF">
     <p>&copy; 2020 Legacy System</p>
     </div>
     </footer>
 </html>
+@endsection

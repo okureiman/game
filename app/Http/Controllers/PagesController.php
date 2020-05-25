@@ -10,6 +10,12 @@ class PagesController extends Controller
     {
         return view('BBS.add');
     }
+
+    public function question()
+    {
+        return view('BBS.question');
+    }
+
     public function regist(Request $request)
     {
         $post_data = [

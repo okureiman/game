@@ -29,10 +29,10 @@ class GameController extends Controller
     }
     public function register()
     {
-        return view('game.register');
+        return redirect('game/register');
     }
     public function login()
     {
-        return view('game.login');
+        return redirect('game/login');
     }
 }

@@ -7,42 +7,32 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
-readme_en.md
-
-## システム概要
+## Service Overview
 
 ドラゴンクエスト風の戦闘ゲームです。
 
 ## URL
 
 
-## 開発環境
+## Development Environment
 
 - [AWS Cloud9]
 - [Laravel　5.8.37]
 - [PHP  7.2.24]
 - [composer　1.10.1]
 
-## 各種機能＆導入技術
+## Skills
 
-- [データベース（MySQL)]
-- [デプロイ（heroku)]
-- [マルチログイン]
-- [問い合わせページ]
-- [ゲーム部分(JavaScript)]
-- [セキュリティ機能（Laravel)]
-　 →キャッシュコントロール対策、クリックジャッキング対策、XSS(文字コード)対策
-- [エラー画面（Laravel）]
-- [通知機能（Incoming WebHooks、Slack）]
-
-
-## トップページ
+- [DataBase（MySQL)]
+- [Deploy（heroku)]
+- [Multi login]
+- [Inquiry page]
+- [Game part(JavaScript)]
+- [Security function（Laravel)]
+　 →Cache control measures、Clickjacking measures、XSS (character code) measures
+- [Error screen（Laravel）]
+- [Notification function（Incoming WebHooks、Slack）]
 
 
-
-## ログインページ
-
-## ゲーム画面
-
-## 使用したBGM：魔王魂様　https://maoudamashii.jokersounds.com/
-## 使用した画像（モンスター画像等）：自作イラスト
+## BGM used: Demon Soul　https://maoudamashii.jokersounds.com/
+## Images used (monster images, etc.): Original illustrations

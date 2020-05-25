@@ -10,7 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', 'HomeController@index')->name('home');
     
 
@@ -18,11 +17,13 @@ Route::get('/', 'HomeController@index')->name('home');
 
     Route::get('game', 'GameController@add'); //スタート画面
     Route::get('game/method', 'GameController@method');
-    Route::get('game/login', 'GameController@login');
+    // Route::get('game/login', 'GameController@add');
+    Route::post('game/login', 'GameController@login');
     Route::get('game/register', 'GameController@register');
+    Route::post('game/register', 'GameController@register');
     Route::get('game/gameover', 'GameController@gameover');
     Route::get('game/clear', 'GameController@clear');
-    Route::post('/', 'HomeController@index');
+    // Route::post('/', 'HomeController@index');
     
     Route::get('game/battle', 'HomeController@battle')->name('battle');
     Route::get('/api/battle', 'HomeController@json');
@@ -73,4 +74,5 @@ Route::group(['prefix' => 'admin'], function () {
 
 // 問い合わせフォーム
 Route::get('BBS/add', 'PagesController@add');
+Route::get('BBS/question', 'PagesController@question');
 Route::post('BBS/regist', 'PagesController@regist');
