@@ -17,7 +17,6 @@ Route::get('/', 'HomeController@index')->name('home');
 
     Route::get('game', 'GameController@add'); //スタート画面
     Route::get('game/method', 'GameController@method');
-    // Route::get('game/login', 'GameController@add');
     Route::post('game/login', 'GameController@login');
     Route::get('game/register', 'GameController@register');
     Route::post('game/register', 'GameController@register');

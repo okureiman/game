@@ -49,8 +49,8 @@
 		battleController.prototype = {
 		  init: function() {
 		    var that = this,
-		    monsterImg =  document.querySelector('.monsterLi > li img');
-		    battleDate.turnLength = 2; //turnLengthが0になると終了？　→１ターンが終了する
+		    monsterImg =  document.querySelector('.monsterLi > li img'); // .クラス　li リスト　>〇〇　子要素
+		    battleDate.turnLength = 2; //turnLengthが0になると終了？　→１ターンが終了する //空のbattleDateの中身を定義している
 		    
 		    // monsterImg.src = "https://news.walkerplus.com/article/205022/1259246_615.jpg";
 		    monsterImg.src = "https://i.pinimg.com/236x/36/15/26/361526ea77ef05d8746fc07a75c5f4ab--dragon-quest-limo.jpg";
@@ -973,7 +973,7 @@
           clearTimeout(timer);
           if(httpObj.status == 200) {
             jsonDataObj = JSON.parse(this.responseText);
-            player = jsonDataObj.player;
+            player = jsonDataObj.player;　//homecontroller　function jsonのplayer部分
             monster = jsonDataObj.monster;
             weapon = jsonDataObj.weapon;
             shield = jsonDataObj.shield;

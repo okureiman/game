@@ -24,6 +24,7 @@
 ## Skills
 
 - [DataBase（MySQL)]
+- [Ajax(JavaScript)]
 - [Deploy（heroku)]
 - [Multi login]
 - [Inquiry page]

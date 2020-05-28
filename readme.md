@@ -22,10 +22,10 @@ readme_en.md
 - [Laravel　5.8.37]
 - [PHP  7.2.24]
 - [composer　1.10.1]
-
 ## 各種機能＆導入技術
 
 - [データベース（MySQL)]
+- [Ajax(JavaScript)]
 - [デプロイ（heroku)]
 - [マルチログイン]
 - [問い合わせページ]
