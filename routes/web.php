@@ -17,15 +17,11 @@ Route::get('/', 'HomeController@index')->name('home');
 
     Route::get('game', 'GameController@add'); //スタート画面
     Route::get('game/method', 'GameController@method');
-    Route::post('game/login', 'GameController@login');
-    Route::get('game/register', 'GameController@register');
-    Route::post('game/register', 'GameController@register');
     Route::get('game/gameover', 'GameController@gameover');
     Route::get('game/clear', 'GameController@clear');
-    // Route::post('/', 'HomeController@index');
     
     Route::get('game/battle', 'HomeController@battle')->name('battle');
-    Route::get('/api/battle', 'HomeController@json');
+    Route::get('game/api/battle', 'HomeController@json');
 
 // ゲーム機能　ステータス
 

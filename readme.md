@@ -29,11 +29,12 @@ readme_en.md
 - [デプロイ（heroku)]
 - [マルチログイン]
 - [問い合わせページ]
+- [Debugbar]
 - [ゲーム部分(JavaScript)]
 - [セキュリティ機能（Laravel)]
 　 →キャッシュコントロール対策、クリックジャッキング対策、XSS(文字コード)対策
 - [エラー画面（Laravel）]
-- [通知機能（Incoming WebHooks、Slack）]
+- [通知機能（Incoming WebHooks、Slack-api）]
 
 
 ## トップページ

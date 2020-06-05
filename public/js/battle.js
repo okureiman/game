@@ -963,6 +963,7 @@
               timeout = true;
               httpObj.abort();
              }, 10000);
+             console.log(result);
         httpObj.open("GET", AjaxPath.requestFile+"?monster=" + result["monster"] + "&lv=" + result["lv"] + "&weapon=" + result["weapon"] + "&armor=" + result["armor"] + "&shield=" + result["shield"] + "&useItem=" + result["useitem"] + "&player=" + result["player"], true);
         httpObj.setRequestHeader( 'Content-Type', 'application/x-www-form-urlencoded');
         httpObj.onreadystatechange = function() {
@@ -971,6 +972,7 @@
           }
           if(timeout) return;
           clearTimeout(timer);
+          console.log(httpObj.status);
           if(httpObj.status == 200) {
             jsonDataObj = JSON.parse(this.responseText);
             player = jsonDataObj.player;　//homecontroller　function jsonのplayer部分
@@ -979,6 +981,7 @@
             shield = jsonDataObj.shield;
             armor = jsonDataObj.armor;
             useitem = jsonDataObj.useitem;
+            console.log(useitem);
             
             player.hp = parseInt(player.maxHP, 10);
             player.speed = parseInt(player.speed, 10);

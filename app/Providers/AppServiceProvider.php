@@ -14,9 +14,9 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(
-            'App\Repositories\Slack\SlackRepositoryInterface',
-            'App\Repositories\Slack\SlackRepository'
-        );
+                'App\Repositories\Slack\SlackRepositoryInterface',
+                'App\Repositories\Slack\SlackRepository'
+            );
     }
 
     /**

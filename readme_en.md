@@ -28,11 +28,12 @@
 - [Deploy（heroku)]
 - [Multi login]
 - [Inquiry page]
+- [Debugbar]
 - [Game part(JavaScript)]
 - [Security function（Laravel)]
 　 →Cache control measures、Clickjacking measures、XSS (character code) measures
 - [Error screen（Laravel）]
-- [Notification function（Incoming WebHooks、Slack）]
+- [Notification function（Incoming WebHooks、Slack-api）]
 
 
 ## BGM used: Demon Soul　https://maoudamashii.jokersounds.com/

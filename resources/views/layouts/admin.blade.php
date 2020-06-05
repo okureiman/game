@@ -46,12 +46,12 @@
 
                         <!-- Right Side Of Navbar -->
                         <ul class="navbar-nav ml-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://cd6656c516b04052a08d8359f18eface.vfs.cloud9.us-east-2.amazonaws.com/game/login">ログイン</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://cd6656c516b04052a08d8359f18eface.vfs.cloud9.us-east-2.amazonaws.com/game/register">ユーザー登録</a>
-                            </li>
+                            <!--<li class="nav-item">-->
+                            <!--    <a class="nav-link" href="https://cd6656c516b04052a08d8359f18eface.vfs.cloud9.us-east-2.amazonaws.com/game/login">ログイン</a>-->
+                            <!--</li>-->
+                            <!--<li class="nav-item">-->
+                            <!--    <a class="nav-link" href="https://cd6656c516b04052a08d8359f18eface.vfs.cloud9.us-east-2.amazonaws.com/game/register">ユーザー登録</a>-->
+                            <!--</li>-->
                             <li class="nav-item">
                                 <a class="nav-link" href="https://cd6656c516b04052a08d8359f18eface.vfs.cloud9.us-east-2.amazonaws.com/BBS/add">問い合わせ</a>
                             </li>
