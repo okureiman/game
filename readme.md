@@ -33,6 +33,7 @@ readme_en.md
 - [ゲーム部分(JavaScript)]
 - [セキュリティ機能（Laravel)]
 　 →キャッシュコントロール対策、クリックジャッキング対策、XSS(文字コード)対策
+- [セキュリティ機能（reCAPTCHA)]
 - [エラー画面（Laravel）]
 - [通知機能（Incoming WebHooks、Slack-api）]
 

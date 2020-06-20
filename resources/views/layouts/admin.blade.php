@@ -25,6 +25,9 @@
         <link href="{{ secure_asset('css/app.css') }}" rel="stylesheet">
         <link href="{{ secure_asset('css/haikei.css') }}" rel="stylesheet">　<!--admin.cssからhaikei.cssに変更-->
         
+        @yield('header')
+        
+        
     </head>
     <body>
         <div id="app">
@@ -46,21 +49,20 @@
 
                         <!-- Right Side Of Navbar -->
                         <ul class="navbar-nav ml-auto">
-                            <!--<li class="nav-item">-->
-                            <!--    <a class="nav-link" href="https://cd6656c516b04052a08d8359f18eface.vfs.cloud9.us-east-2.amazonaws.com/game/login">ログイン</a>-->
-                            <!--</li>-->
-                            <!--<li class="nav-item">-->
-                            <!--    <a class="nav-link" href="https://cd6656c516b04052a08d8359f18eface.vfs.cloud9.us-east-2.amazonaws.com/game/register">ユーザー登録</a>-->
-                            <!--</li>-->
                             <li class="nav-item">
-                                <a class="nav-link" href="https://cd6656c516b04052a08d8359f18eface.vfs.cloud9.us-east-2.amazonaws.com/BBS/add">問い合わせ</a>
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('messages.Login') }}</a>
                             </li>
+                            @if (Route::has('register'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('messages.Register') }}</a>
+                                </li>
+                            @endif
                             
                               {{-- 以下を追記 --}}
                         <!-- Authentication Links -->
                         {{-- ログインしていなかったらログイン画面へのリンクを表示 --}}
                         @guest
-                            <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
+                            <!--<li><a class="nav-link" href="{{ route('login') }}">{{ __('messages.Login') }}</a></li>-->
                         {{-- ログインしていたらユーザー名とログアウトボタンを表示 --}}
                         @else
                             <li class="nav-item dropdown">
@@ -72,7 +74,7 @@
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        {{ __('messages.Logout') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -93,5 +95,6 @@
                 @yield('content')
             </main>
         </div>
+        @yield('reCAPCHA')
     </body>
 </html>

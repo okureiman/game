@@ -46,11 +46,11 @@ class HomeController extends Controller
                 'def' => 100, ],
                 "monster" => [
                     'id' => 1,
-                    'name' => 'モンスター名',
+                    'name' => 'スライムナイト',
                     'max_hp' => 100,
                     'skill' => 'ギラ,ベギラマ,ホイミ,ベホイミ,ラリホー,マホトーン,レミーラ,リレミト,ルーラ,トヘロス',
-                    'atk' => 1,
-                    'def' => 1,
+                    'atk' => 200,
+                    'def' => 120,
                     'weaknessType1' => 0, // 0~4
                     'weaknessType2' => 1, // 0~4
                     'weaknessType3' => 1,// 0~4

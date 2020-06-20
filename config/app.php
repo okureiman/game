@@ -175,6 +175,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class, //追記
+        Laravel\Socialite\SocialiteServiceProvider::class, //追記
 
     ],
 
@@ -227,6 +228,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class, //追記
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class, //追記
+        
     ],
 
 ];

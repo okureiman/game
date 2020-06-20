@@ -52,8 +52,11 @@
 		    monsterImg =  document.querySelector('.monsterLi > li img'); // .クラス　li リスト　>〇〇　子要素
 		    battleDate.turnLength = 2; //turnLengthが0になると終了？　→１ターンが終了する //空のbattleDateの中身を定義している
 		    
+		    
+		    //モンスターの画像
 		    // monsterImg.src = "https://news.walkerplus.com/article/205022/1259246_615.jpg";
-		    monsterImg.src = "https://i.pinimg.com/236x/36/15/26/361526ea77ef05d8746fc07a75c5f4ab--dragon-quest-limo.jpg";
+		    // monsterImg.src = "https://i.pinimg.com/236x/36/15/26/361526ea77ef05d8746fc07a75c5f4ab--dragon-quest-limo.jpg";
+		    monsterImg.src = "https://cd6656c516b04052a08d8359f18eface.vfs.cloud9.us-east-2.amazonaws.com/image/teki.jpg";
 		    
 			//skill
 			//じゅもんを表示している箇所
@@ -211,7 +214,9 @@
 			    // global.dq.Sound.dead();
 				  messageView.innerHTML = "あなたは しにました。";
 				  commendBox.style.display = "none";
-				  endWindow.classList.add("show");
+				  //endWindow.classList.add("show");
+				  //ゲームオーバー画面に移動させる
+				  onLoad=setTimeout("location.href='https://cd6656c516b04052a08d8359f18eface.vfs.cloud9.us-east-2.amazonaws.com/game/gameover'",1000)
 			  }
 			  if(battleMode == "finish") {
 			    commendBox.style.display = "none";
@@ -222,7 +227,9 @@
 			    if(monster.hp <= 0) {
 			    //   global.dq.Sound.win();
 			      messageView.innerHTML = monster.name + "を たおした。";
-			      endWindow.classList.add("show");
+			      //endWindow.classList.add("show");
+			        //クリア画面に移動させる
+				  onLoad=setTimeout("location.href='https://cd6656c516b04052a08d8359f18eface.vfs.cloud9.us-east-2.amazonaws.com/game/clear'",1000)
 			    }
 			  }
 			  if(battleMode == "escapeEnd") {
@@ -634,7 +641,7 @@
 					    }
 				    }  
 		      //}
-			    if(monster.skill[name] == "ギラ") {
+			    if(monster.skill[name] == "���ラ") {
 				    randomNum = Random.getValue([{l:0, g: 106},{l:106, g: 192},{l:192, g: 256}]);
 					  if(randomNum == 0) {
 						  monsterAtkVal = magicAttack("ギラ");
@@ -907,7 +914,7 @@
 		    return [effectVal,effect,0];;
 		  },
 		  
-		  // ターン turn()　先攻/後攻を決めている？
+		  // タ���� turn()　先攻/後攻を決めている？
 		  turn: function() {
 		    var randomNum = Random.getValue(),
 		        standardRandomNum = Math.round(this.getStandardRandom(0,63));		    
@@ -925,6 +932,79 @@
 			  return randomNum;
 		  }
 		};
+		
+		//   //SoundController 
+  //  SoundController = function() {};
+		// SoundController.prototype = {
+		//   init: function() {
+		//     var that = this;
+		        
+		//     that.audioList = {
+		// 	    "sound00": new Audio("app/sound/click.mp3"),
+		// 	    "sound01": new Audio("app/sound/magic.mp3"),
+		// 	    "sound02": new Audio("app/sound/attack.mp3"),
+		// 	    "sound03": new Audio("app/sound/win.mp3"),
+		// 	    "sound04": new Audio("app/sound/dead.mp3"),
+		// 	    "sound05": new Audio("app/sound/fire.mp3"),
+		// 	    "sound06": new Audio("app/sound/damage.mp3")
+		//     };
+		    		    
+		// 	  var clickElms,
+		// 	      clickTargetClass = ['.configView > .sttngIco', '.configLi > li', '.inputStrLi > li', '.startBtn', '.monsterSelect option', '.commendLi > li'];
+		// 	  for (var name in clickTargetClass) {
+		// 	    if (clickTargetClass.hasOwnProperty(name)) {
+		// 	      clickElms = document.querySelectorAll(clickTargetClass[name]);		      
+		// 	      that.setClickSound(clickElms);
+		// 	    }
+		// 	  }   
+		//   },
+		  
+		//   setClickSound: function(elem) {
+		//     var that = this;
+		//     for(var i = 0, il = elem.length; i < il; i++) {
+		// 	    elem[i].addEventListener("click", function(){
+		// 		    that.audioList["sound00"].play();
+		// 	    }, false);
+		// 	  }
+		// 	  return;
+		//   },
+		  
+		//   click: function() {
+		// 	  this.audioList["sound00"].play();
+		// 	  return;
+		//   },
+		  
+		//   magic: function() {
+		// 	  this.audioList["sound01"].play();
+		// 	  return;
+		//   },
+		  
+		//   attack: function() {
+		// 	  this.audioList["sound02"].play();
+		// 	  return;
+		//   },
+		  
+		//   win: function() {
+		// 	  this.audioList["sound03"].play();
+		// 	  return;
+		//   },
+		  
+		//   dead: function() {
+		// 	  this.audioList["sound04"].play();
+		// 	  return;
+		//   },
+		  
+		//   fire: function() {
+		// 	  this.audioList["sound05"].play();
+		// 	  return;
+		//   },
+		  
+		//   damage: function() {
+		// 	  this.audioList["sound06"].play();
+		// 	  return;
+		//   }
+		  
+  //  }
 		
 		//Ajax Controller
 		var AjaxConttoller = function(){};
@@ -946,7 +1026,7 @@
 			         paramName = decodeURIComponent(element[0]),
 			         paramValue = decodeURIComponent(element[1]);
 			         
-			     result[paramName] = decodeURIComponent(paramValue);
+			     result[paramName] = decodeURIComponent(paramValue);   
 			   }
 			   console.log(result);
 			   this.requestFile(result);

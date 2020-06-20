@@ -63,7 +63,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('login', 'Admin\LoginController@showLoginForm')->name('admin.login');
     Route::post('login', 'Admin\LoginController@login')->name('admin.login');
     
-    Route::get('/', 'Admin\HomeController@index')->name('admin.home');
+    Route::get('/home', 'Admin\HomeController@index')->name('admin.home');
     Route::post('logout', 'Admin\LoginController@logout')->name('admin.logout');
 });
 
@@ -71,3 +71,15 @@ Route::group(['prefix' => 'admin'], function () {
 Route::get('BBS/add', 'PagesController@add');
 Route::get('BBS/question', 'PagesController@question');
 Route::post('BBS/regist', 'PagesController@regist');
+
+//別アプリからのログイン
+
+// github
+
+Route::get('/login/github', 'Auth\LoginController@redirectToProvider');
+Route::get('/login/github/callback', 'Auth\LoginController@handleProviderCallback');
+
+// google
+
+Route::get('login/google', 'Auth\LoginController@redirectToGoogle');
+Route::get('login/google/callback', 'Auth\LoginController@handleGoogleCallback');

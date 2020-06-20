@@ -8,27 +8,30 @@
     </head>
     <body>
         <h1 sytle="text-align: center"><font color="#F8F8FF">遊び方</h1>
+        <div style="background: #CCCCFF; width:630px; border: 1px solid #D3D3D3; height:100％; padding-left:10px; padding-right:10px; padding-top:10px; padding-bottom:10px;">
         <ul class="rule">
             <p>
-                
+           
             </p>
-            <font color="#F8F8FF">
+                 <font color=#000000>
             <li>
-                ゲーム開始： 「ゲーム開始」ボタンをクリック
+                ゲーム開始： 「ゲーム開始」ボタンをクリック。ボタンクリック後、敵モンスターを倒すゲームが始まります。
             </li>
-            <p>
-                
-            </p>
             <li>
-                説明仮
+            <p>「たたかう」をクリックすると、敵モンスターに攻撃できます。</p>
+          　<p>「にげる」をクリックすると、戦闘を終了します。</p>
+            <p>「じゅもん」をクリックすると、回復呪文や攻撃呪文を使用できます。</p>
+            <p>「どうぐ」をクリックすると、やくそうを使用できます。</p>
+               　
             </li>
-            <p>
-                
-            </p>
             <li>
-                説明仮2
+                敵モンスターを倒せばゲームクリアです。
+            </li>
+            <li>
+                敵モンスターに倒されるとゲームオーバーです。
             </li>
         </ul>
+        </div>
          <input type="button" onclick="location.href='https://cd6656c516b04052a08d8359f18eface.vfs.cloud9.us-east-2.amazonaws.com'" value="タイトルに戻る">
          <div align="right">
                 <audio src="{{ asset('/bgm/bgm_maoudamashii_healing13.mp3') }}" controls></audio>

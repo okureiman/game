@@ -10882,3 +10882,12 @@ a.text-dark:focus {
   }
 }
 
+/*reCAPTCHA中央揃え*/
+
+.g-recaptcha {
+  margin-right:auto;
+  margin-left:auto;
+  text-align: center;
+  width:300px;
+  margin-top:20px;
+}

@@ -32,6 +32,7 @@
 - [Game part(JavaScript)]
 - [Security function（Laravel)]
 　 →Cache control measures、Clickjacking measures、XSS (character code) measures
+- [Security function（reCAPTCHA)]
 - [Error screen（Laravel）]
 - [Notification function（Incoming WebHooks、Slack-api）]
 
