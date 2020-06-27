@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Schema; //追加
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -14,9 +15,9 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(
-                'App\Repositories\Slack\SlackRepositoryInterface',
-                'App\Repositories\Slack\SlackRepository'
-            );
+            'App\Repositories\Slack\SlackRepositoryInterface',
+            'App\Repositories\Slack\SlackRepository'
+        );
     }
 
     /**
@@ -30,5 +31,7 @@ class AppServiceProvider extends ServiceProvider
         if (\App::environment('production')) {
             \URL::forceScheme('https');
         }
+        
+        Schema::defaultStringLength(191); //追記
     }
 }

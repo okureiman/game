@@ -176,6 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class, //追記
         Laravel\Socialite\SocialiteServiceProvider::class, //追記
+        TCG\Voyager\VoyagerServiceProvider::class,//追記
 
     ],
 

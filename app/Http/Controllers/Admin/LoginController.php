@@ -34,32 +34,7 @@ class LoginController extends Controller
         \Auth::guard('admin')->logout();
         return redirect('/admin/login');
     }
-    
-    // GitHub の認証ページへ遷移
-    public function redirectToProvider()
-    {
-        return Socialite::driver('github')->redirect();
-    }
 
-    public function handleProviderCallback()
-    {
-        $socialUser = Socialite::driver('github')->stateless()->user();
-        $user = User::where([ 'email' => $socialUser->getEmail() ])->first();
-
-        if ($user) {
-            Auth::login($user);
-            return redirect('/home');
-        } else {
-            $user = User::create([
-              'name' => $socialUser->getNickname(),
-              'email' => $socialUser->getEmail(),
-              'password' => Hash::make($socialUser->getNickname()),
-          ]);
-            Auth::login($user);
-            return redirect('/home');
-        }
-    }
-    
     public function redirectToGoogle()
     {
         // googleへのリダイレクト

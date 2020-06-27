@@ -23,16 +23,14 @@ Route::get('/', 'HomeController@index')->name('home');
     Route::get('game/battle', 'HomeController@battle')->name('battle');
     Route::get('game/api/battle', 'HomeController@json');
 
-// ゲーム機能　ステータス
+//プロフィール
 
-Route::group(['prefix' => 'admin'], function () {
-    Route::get('status/id', 'Admin\StatusController@id')->middleware('auth');
-    Route::get('status/name', 'Admin\StatusController@name')->middleware('auth');
-    Route::get('status/hp', 'Admin\StatusController@hp')->middleware('auth');
-    Route::get('status/atk', 'Admin\StatusController@atk')->middleware('auth');
-    Route::get('status/def', 'Admin\StatusController@def')->middleware('auth');
-});
-
+   Route::get('profile/create', 'ProfileController@add')->middleware('auth');
+   Route::post('profile/create', 'ProfileController@create')->middleware('auth');
+   Route::get('profile/edit', 'ProfileController@edit')->middleware('auth');
+   Route::post('profile/edit', 'ProfileController@update')->middleware('auth');
+   Route::get('profile', 'ProfileController@index')->middleware('auth');
+   Route::get('profile/delete', 'ProfileController@delete')->middleware('auth');
 
 // ゲーム機能　モンスター
 
@@ -44,14 +42,6 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('monster/show', 'Admin\MonsterController@show')->middleware('auth');
 });
 
-
-// ゲーム機能　スコア
-
-Route::group(['prefix' => 'admin'], function () {
-    Route::get('score/id', 'Admin\ScoreController@id')->middleware('auth');
-    Route::get('score/name', 'Admin\ScoreController@name')->middleware('auth');
-    Route::get('score/delete', 'Admin\ScoreController@delete')->middleware('auth');
-});
 
 Auth::routes();
 
@@ -74,12 +64,13 @@ Route::post('BBS/regist', 'PagesController@regist');
 
 //別アプリからのログイン
 
-// github
-
-Route::get('/login/github', 'Auth\LoginController@redirectToProvider');
-Route::get('/login/github/callback', 'Auth\LoginController@handleProviderCallback');
-
 // google
 
 Route::get('login/google', 'Auth\LoginController@redirectToGoogle');
 Route::get('login/google/callback', 'Auth\LoginController@handleGoogleCallback');
+
+//Voyager
+
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
+});

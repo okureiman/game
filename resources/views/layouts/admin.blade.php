@@ -49,19 +49,17 @@
 
                         <!-- Right Side Of Navbar -->
                         <ul class="navbar-nav ml-auto">
+                            @guest
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('messages.Login') }}</a>
                             </li>
                             @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('messages.Register') }}</a>
-                                </li>
+                       
                             @endif
                             
                               {{-- 以下を追記 --}}
                         <!-- Authentication Links -->
                         {{-- ログインしていなかったらログイン画面へのリンクを表示 --}}
-                        @guest
                             <!--<li><a class="nav-link" href="{{ route('login') }}">{{ __('messages.Login') }}</a></li>-->
                         {{-- ログインしていたらユーザー名とログアウトボタンを表示 --}}
                         @else
@@ -76,11 +74,19 @@
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('messages.Logout') }}
                                     </a>
+                                     <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('messages.Logout') }}
+                                    </a>
+                                    
+                                    
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
                                 </div>
+                              </div>
                             </li>
                             @endguest
                             {{-- 以上までを追記 --}}

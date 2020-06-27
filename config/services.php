@@ -15,14 +15,6 @@ return [
     */
     
     //追記
-    
-    'github' => [
-        'client_id' => env('GITHUB_CLIENT_ID'),
-        'client_secret' => env('GITHUB_CLIENT_SECRET'),
-        'redirect' => env('APP_URL') . '/login/github/callback',
-        ],
-    
-    //追記
         
     'google' => [
     'client_id' => env('GOOGLE_CLIENT_ID'),

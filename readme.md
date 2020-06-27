@@ -35,6 +35,7 @@ readme_en.md
 　 →キャッシュコントロール対策、クリックジャッキング対策、XSS(文字コード)対策
 - [セキュリティ機能（reCAPTCHA)]
 - [エラー画面（Laravel）]
+- [管理画面（Voyager）]
 - [通知機能（Incoming WebHooks、Slack-api）]
 
 

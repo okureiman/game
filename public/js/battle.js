@@ -384,7 +384,7 @@
 			      }
 		      } else if(monster.effectType == 4) {
 		        // global.dq.Sound.fire();
-		        messageView.innerHTML = monster.name + "は " + monster.useEffect + "を はいた。";
+		        messageView.innerHTML = monster.name + "は " + monster.useEffect + "を はい���������。";
 			      setTimeout(function() {
 			        // global.dq.Sound.damage();
 					    battleViewElem.classList.add("shock");

@@ -34,6 +34,7 @@
 　 →Cache control measures、Clickjacking measures、XSS (character code) measures
 - [Security function（reCAPTCHA)]
 - [Error screen（Laravel）]
+- [management screen(Voyager)]
 - [Notification function（Incoming WebHooks、Slack-api）]
 
 
