@@ -7,9 +7,11 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
+## Legacy System
+
 ## Service Overview
 
-ドラゴンクエスト風の戦闘ゲームです。
+This is a Dragon Quest style combat game.
 
 ## URL
 
@@ -37,6 +39,16 @@
 - [management screen(Voyager)]
 - [Notification function（Incoming WebHooks、Slack-api）]
 
+## トップページ
 
-## BGM used: Demon Soul　https://maoudamashii.jokersounds.com/
+![login](https://user-images.githubusercontent.com/60533591/85917100-58a27800-b892-11ea-8816-83c4a2d56474.png)
+
+
+## ログインページ
+
+## ゲーム画面
+
+
+
+## BGM used: [Demon Soul](https://maoudamashii.jokersounds.com/)
 ## Images used (monster images, etc.): Original illustrations

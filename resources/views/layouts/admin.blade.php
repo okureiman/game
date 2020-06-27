@@ -54,7 +54,9 @@
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('messages.Login') }}</a>
                             </li>
                             @if (Route::has('register'))
-                       
+                               <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('messages.Register') }}</a>
+                                </li>
                             @endif
                             
                               {{-- 以下を追記 --}}
@@ -77,7 +79,7 @@
                                      <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('messages.Logout') }}
+                                        {{ __('プロフィール編集') }}
                                     </a>
                                     
                                     

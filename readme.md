@@ -7,7 +7,9 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
-readme_en.md
+## Legacy System
+
+[English.ver](https://github.com/okureiman/game/blob/master/readme_en.md)
 
 ## システム概要
 
@@ -41,11 +43,12 @@ readme_en.md
 
 ## トップページ
 
+![login](https://user-images.githubusercontent.com/60533591/85917100-58a27800-b892-11ea-8816-83c4a2d56474.png)
 
 
 ## ログインページ
 
 ## ゲーム画面
 
-## 使用したBGM：魔王魂様　https://maoudamashii.jokersounds.com/
+## 使用したBGM：[魔王魂様](https://maoudamashii.jokersounds.com/)
 ## 使用した画像（モンスター画像等）：自作イラスト
