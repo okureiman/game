@@ -43,12 +43,16 @@
 
 ## トップページ
 
-![login](https://user-images.githubusercontent.com/60533591/85917100-58a27800-b892-11ea-8816-83c4a2d56474.png)
+![top](https://user-images.githubusercontent.com/60533591/85917100-58a27800-b892-11ea-8816-83c4a2d56474.png)
 
 
-## ログインページ
+## ログイン画面
+
+![login]()
 
 ## ゲーム画面
+
+![game]()
 
 ## 使用したBGM：[魔王魂様](https://maoudamashii.jokersounds.com/)
 ## 使用した画像（モンスター画像等）：自作イラスト

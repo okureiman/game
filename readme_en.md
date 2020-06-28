@@ -39,16 +39,17 @@ This is a Dragon Quest style combat game.
 - [management screen(Voyager)]
 - [Notification function（Incoming WebHooks、Slack-api）]
 
-## トップページ
+## Top Page
 
-![login](https://user-images.githubusercontent.com/60533591/85917100-58a27800-b892-11ea-8816-83c4a2d56474.png)
+![top](https://user-images.githubusercontent.com/60533591/85917100-58a27800-b892-11ea-8816-83c4a2d56474.png)
 
+## Login Screen
 
-## ログインページ
+![login]()
 
-## ゲーム画面
+## Game Screen
 
-
+![game]()
 
 ## BGM used: [Demon Soul](https://maoudamashii.jokersounds.com/)
 ## Images used (monster images, etc.): Original illustrations

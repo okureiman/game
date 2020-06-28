@@ -8,12 +8,12 @@
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        {{-- 各ページごとにtitleタグを入れるために@yieldで空けておきます。 --}}
+        {{-- 各ページごとにtitleタグを入れるために@yieldで空ける。 --}}
         <title>@yield('title')</title>
         
 
         <!-- Scripts -->
-         {{-- Laravel標準で用意されているJavascriptを読み込みます --}}
+         {{-- Laravel標準で用意されているJavascriptを読み込む --}}
         <script src="{{ secure_asset('js/app.js') }}" defer></script>　
 
         <!-- Fonts -->
@@ -21,7 +21,7 @@
         <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
 
         <!-- Styles -->
-        {{-- Laravel標準で用意されているCSSを読み込みます --}}
+        {{-- Laravel標準で用意されているCSSを読み込む --}}
         <link href="{{ secure_asset('css/app.css') }}" rel="stylesheet">
         <link href="{{ secure_asset('css/haikei.css') }}" rel="stylesheet">　<!--admin.cssからhaikei.cssに変更-->
         
@@ -31,10 +31,10 @@
     </head>
     <body>
         <div id="app">
-            {{-- 画面上部に表示するナビゲーションバーです。 --}}
+            {{-- 画面上部に表示するナビゲーションバー --}}
             <nav class="navbar navbar-expand-md">
                 <div class="container">
-                    <a class="navbar-brand" href="{{ url('https://cd6656c516b04052a08d8359f18eface.vfs.cloud9.us-east-2.amazonaws.com') }}">
+                    <a class="navbar-brand" href="{{ url('/') }}">
                         {{ config('', 'Legacy System') }}
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -91,15 +91,14 @@
                               </div>
                             </li>
                             @endguest
-                            {{-- 以上までを追記 --}}
                         </ul>
                     </div>
                 </div>
             </nav>
-            {{-- ここまでナビゲーションバー --}}
+
 
             <main class="py-4">
-                {{-- コンテンツをここに入れるため、@yieldで空けておきます。 --}}
+                {{-- コンテンツをここに入れるため、@yieldで空ける。 --}}
                 @yield('content')
             </main>
         </div>
