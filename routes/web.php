@@ -32,17 +32,6 @@ Route::get('/', 'HomeController@index')->name('home');
    Route::get('profile', 'ProfileController@index')->middleware('auth');
    Route::get('profile/delete', 'ProfileController@delete')->middleware('auth');
 
-// ゲーム機能　モンスター
-
-Route::group(['prefix' => 'admin'], function () {
-    Route::get('monster/create', 'Admin\MonsterController@create')->middleware('auth');
-    Route::get('monster/index', 'Admin\MonsterController@index')->middleware('auth');
-    Route::get('monster/edit', 'Admin\MonsterController@edit')->middleware('auth');
-    Route::post('monster/edit', 'Admin\MonsterController@update')->middleware('auth');
-    Route::get('monster/show', 'Admin\MonsterController@show')->middleware('auth');
-});
-
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
