@@ -34,35 +34,4 @@ class LoginController extends Controller
         \Auth::guard('admin')->logout();
         return redirect('/admin/login');
     }
-
-    public function redirectToGoogle()
-    {
-        // googleへのリダイレクト
-        return socialite::driver('google')->redirect;
-    }
-    
-    public function handleGoogleCallback()
-    {
-        // google認証後の処理
-        $gUser = Socialite::driver('google')->stateless()->user();
-        // email が合致するユーザーを取得
-        $user = User::where('email', $gUser->email)->first();
-        // 見つからなければ新しくユーザーを作成
-        if ($user == null) {
-            $user = $this->createUserByGoogle($gUser);
-        }
-        // ログイン処理
-        \Auth::login($user, true);
-        return redirect('/home');
-    }
-    
-    public function createUserByGoogle()
-    {
-        $User = User::create([
-            'name'=> $gUser->name,
-            'email'=>$gUser->email,
-            'password'=>\Hash::make(uniqid()),
-            ]);
-        return $user;
-    }
 }
