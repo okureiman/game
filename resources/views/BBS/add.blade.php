@@ -6,7 +6,7 @@
      
          <ul class="site link">
              <li class="prelink">
-                 <a title="戻る" href="https://young-coast-18447.herokuapp.com/">戻る</a>
+                 <a title="戻る" href="https://cd6656c516b04052a08d8359f18eface.vfs.cloud9.us-east-2.amazonaws.com">戻る</a>
              </li>
              <li class="prelink2">
                   <a href="https://cd6656c516b04052a08d8359f18eface.vfs.cloud9.us-east-2.amazonaws.com/BBS/question">よくある質問</a>

@@ -14,7 +14,7 @@
 		              </div>
             <ul class="btnLi">
 			      <li><a href="https://cd6656c516b04052a08d8359f18eface.vfs.cloud9.us-east-2.amazonaws.com/game/battle?monster=&lv=&weapon=&armor=&shield=&useItem=&player=">再戦</a></li>
-			      <li><a href="https://young-coast-18447.herokuapp.com">TOPへ戻る</a></li>
+			      <li><a href="https://cd6656c516b04052a08d8359f18eface.vfs.cloud9.us-east-2.amazonaws.com">TOPへ戻る</a></li>
 		    </ul>
         <audio src="{{ asset('/bgm/bgm_maoudamashii_healing06.mp3') }}" controls></audio>
         </div>
