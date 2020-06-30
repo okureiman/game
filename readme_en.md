@@ -15,7 +15,7 @@ This is a Dragon Quest style combat game.
 
 ## URL
 
-[app](https://young-coast-18447.herokuapp.com/)
+![app](https://young-coast-18447.herokuapp.com/)
 
 ## Development Environment
 
@@ -51,6 +51,10 @@ This is a Dragon Quest style combat game.
 ## Game Screen
 
 ![game]()
+
+## management screen
+
+![management](https://user-images.githubusercontent.com/60533591/86088145-b926f480-bae0-11ea-9516-0345407cbefa.png)
 
 ## BGM used: [Demon Soul](https://maoudamashii.jokersounds.com/)
 ## Images used (monster images, etc.): Original illustrations

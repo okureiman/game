@@ -67,6 +67,11 @@
                                 </div>
                             </li>
                         @endguest
+                         <ul class="navbar-nav ml-auto">
+                            　　<li class="nav-item">
+                                　<a class="nav-link" href="https://young-coast-18447.herokuapp.com/BBS/add">{{ __('問い合わせ') }}</a>
+                            　　</li>
+                            　　</ul>
                     </ul>
                 </div>
             </div>

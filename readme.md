@@ -17,7 +17,7 @@
 
 ## URL
 
-[app](https://young-coast-18447.herokuapp.com/)
+![app](https://young-coast-18447.herokuapp.com/)
 
 ## 開発環境
 
@@ -55,7 +55,9 @@
 
 ![game]()
 
+## 管理画面
+
+![management](https://user-images.githubusercontent.com/60533591/86088145-b926f480-bae0-11ea-9516-0345407cbefa.png)
+
 ## 使用したBGM：[魔王魂様](https://maoudamashii.jokersounds.com/)
 ## 使用した画像（モンスター画像等）：自作イラスト
-
-<!--xx-->

@@ -58,6 +58,7 @@
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('messages.Register') }}</a>
                                 </li>
                             @endif
+                               　
                             
                               {{-- 以下を追記 --}}
                         <!-- Authentication Links -->
@@ -91,6 +92,11 @@
                               </div>
                             </li>
                             @endguest
+                                <ul class="navbar-nav ml-auto">
+                            　　<li class="nav-item">
+                                　<a class="nav-link" href="https://young-coast-18447.herokuapp.com/BBS/add">{{ __('問い合わせ') }}</a>
+                            　　</li>
+                            　　</ul>
                         </ul>
                     </div>
                 </div>
