@@ -59,14 +59,6 @@
                                     {{ __('messages.Login') }}
                                 </button>
                                 
-                                <div class="form-group row mt-2">
-                                   <div class="col-md-8 offset-md-4">
-                                      <a href="/login/google" class="btn btn-secondary" role="button">
-                                        Googleアカウントでログイン
-                                     </a>
-                                   </div>
-                                </div>
-
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         {{ __('messages.Forgot Your Password?') }}
