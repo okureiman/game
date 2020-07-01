@@ -51,14 +51,7 @@ Route::get('BBS/add', 'PagesController@add');
 Route::get('BBS/question', 'PagesController@question');
 Route::post('BBS/regist', 'PagesController@regist');
 
-//別アプリからのログイン
-
-// google
-
-Route::get('login/google', 'Auth\LoginController@redirectToGoogle');
-Route::get('login/google/callback', 'Auth\LoginController@handleGoogleCallback');
-
-//Voyager
+//Voyager 管理画面
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
