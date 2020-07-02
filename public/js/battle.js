@@ -2,33 +2,40 @@
 (function(global) {
   var document = global.document;
   function battle() {
+	var count = 1;
     var commendBox = document.querySelector('.commend'),
         commandLi = document.querySelector('.commendLi'),
 		commandItem = document.querySelectorAll('.commendLi > li'), //コマンドリスト（たたかう、にげる、じゅもん、どうぐ）
-        messageView = document.querySelector('.message > p'), //
+        messageView = document.querySelector('.message > p'), //メッセージを表示するエレメント
         monsterLi = document.querySelector('.monsterLi > li'),
-		magicLi = document.querySelector('.magicLi'),
-        magicLiItem = "",
-        itemLi = document.querySelector('.itemLi'),
-        itemLiItem = "",
+		magicLi = document.querySelector('.magicLi'),　//じゅもんリストの親要素(<ul>)
+        magicLiItem = "", //じゅもんリスト(<li>)　動的に追加する
+		itemLi = document.querySelector('.itemLi'), //どうぐリストの親要素(<ul>)
+        itemLiItem = "",  //どうぐリスト(<li>)
         battleViewElem = document.querySelector('.dqArea'),
         playerStatusLi = document.querySelectorAll('.player01Li > li'),
         endWindow = document.querySelector('.endWindow'),
         battleMode = "command",
         battleDate = {},
         messageTime = 900, // ? 
-        monsterImgPath = "",
-        monster,player = {};
+        monsterImgPath = "", //
+		json_response = "",
+		monster,player = {}; //モンスター、プレーヤーのデータを設定する元の入れ物（オブジェクト）
+		
 				
 		var AjaxPath = {
-	    requestFile: "api/battle",
-	    sendBattleData: "player=getパラメータ"
+		requestFile: "api/battle", //apiのURL　http:://amazon....com/api/battle このURLにアクセスすると、JSONでデータがリターンされる
+	    sendBattleData: ""
 	  };
-		//乱数テーブル
-		var Random = {};
-		Random.table = [
-		7, 182, 240, 31, 85, 91, 55, 227, 174, 79, 178, 94, 153, 246, 119, 203, 96, 143, 67, 62, 167, 76, 45, 136, 199, 104, 215, 209, 194, 242, 193, 221,170, 147, 22, 247, 38, 4, 54, 161, 70, 78, 86, 190, 108, 110, 128, 213, 181, 142, 164, 158, 231, 202, 206, 33, 255, 15, 212, 140, 230, 211, 152, 71, 244, 13, 21, 237, 196, 228, 53, 120, 186, 218, 39, 97, 171, 185, 195, 125, 133, 252, 149, 107, 48, 173, 134, 0, 141, 205, 126, 159, 229, 239, 219, 89, 235, 5, 20, 201, 36, 44, 160, 60, 68, 105, 64, 113, 100, 58, 116, 124, 132, 19, 148, 156, 150, 172, 180, 188, 3, 222, 84, 220, 197, 216, 12, 183, 37, 11, 1, 28, 35, 43, 51, 59, 151, 27, 98, 47, 176, 224, 115, 204, 2, 74, 254, 155, 163, 109, 25, 56, 117, 189, 102, 135, 63, 175, 243, 251, 131, 10, 18, 26, 34, 83, 144, 207, 122, 139, 82, 90, 73, 106, 114, 40, 88, 138, 191, 14, 6, 162, 253, 250, 65, 101, 210, 77, 226, 92, 29, 69, 30, 9, 17, 179, 95, 41, 121, 57, 46, 42, 81, 217, 93, 166, 234, 49, 129, 137, 16, 103, 245, 169, 66, 130, 112, 157, 146, 87, 225, 61, 241, 249, 238, 8, 145, 24, 32, 177, 165, 187, 198, 72, 80, 154, 214, 127, 123, 233, 118, 223, 50, 111, 52, 168, 208, 184, 99, 200, 192, 236, 75, 232, 23, 248
-		];
+
+	/**
+	 * 乱数テーブル
+	 * ダメージ計算の揺らぎをこれが作ってくれている。ゲームバランスに影響する。
+	 */
+	var Random = {};
+	Random.table = [
+	7, 182, 240, 31, 85, 91, 55, 227, 174, 79, 178, 94, 153, 246, 119, 203, 96, 143, 67, 62, 167, 76, 45, 136, 199, 104, 215, 209, 194, 242, 193, 221,170, 147, 22, 247, 38, 4, 54, 161, 70, 78, 86, 190, 108, 110, 128, 213, 181, 142, 164, 158, 231, 202, 206, 33, 255, 15, 212, 140, 230, 211, 152, 71, 244, 13, 21, 237, 196, 228, 53, 120, 186, 218, 39, 97, 171, 185, 195, 125, 133, 252, 149, 107, 48, 173, 134, 0, 141, 205, 126, 159, 229, 239, 219, 89, 235, 5, 20, 201, 36, 44, 160, 60, 68, 105, 64, 113, 100, 58, 116, 124, 132, 19, 148, 156, 150, 172, 180, 188, 3, 222, 84, 220, 197, 216, 12, 183, 37, 11, 1, 28, 35, 43, 51, 59, 151, 27, 98, 47, 176, 224, 115, 204, 2, 74, 254, 155, 163, 109, 25, 56, 117, 189, 102, 135, 63, 175, 243, 251, 131, 10, 18, 26, 34, 83, 144, 207, 122, 139, 82, 90, 73, 106, 114, 40, 88, 138, 191, 14, 6, 162, 253, 250, 65, 101, 210, 77, 226, 92, 29, 69, 30, 9, 17, 179, 95, 41, 121, 57, 46, 42, 81, 217, 93, 166, 234, 49, 129, 137, 16, 103, 245, 169, 66, 130, 112, 157, 146, 87, 225, 61, 241, 249, 238, 8, 145, 24, 32, 177, 165, 187, 198, 72, 80, 154, 214, 127, 123, 233, 118, 223, 50, 111, 52, 168, 208, 184, 99, 200, 192, 236, 75, 232, 23, 248
+	];
 
     Random.pos = Math.floor(Math.random() * 255) % 256;    //Math.floor(Math.random() * 255) ← 0から254のランダムな値　
     Random.getValue = function(range) {
@@ -43,24 +50,64 @@
         }
       }
       return i - 1;
-    }	
-		//battle constructor
+	}	
+	
+	/**
+	 * battleController
+	 * コマンドを選択して、選択したコマンドによって何を実行するか定義している箇所
+	 * コマンドをクリックした時に、battleModeという変数の中身を書き換えて、
+	 * 290行目あたりのmode:function()の中身を実行する。
+	 * mode()は,battleModeの値によって内容が変わる。
+	 */
     var battleController = function() {};
 		battleController.prototype = {
 		  init: function() {
 		    var that = this,
-		    monsterImg =  document.querySelector('.monsterLi > li img'); // .クラス　li リスト　>〇〇　子要素
-		    battleDate.turnLength = 2; //turnLengthが0になると終了？　→１ターンが終了する //空のbattleDateの中身を定義している
+		    monsterImg =  document.querySelector('.monsterLi > li img');
+		    battleDate.turnLength = 2; //turnLengthが0になると、１ターンが終了する
 		    
-		    
-		    //モンスターの画像
-		    // monsterImg.src = "https://news.walkerplus.com/article/205022/1259246_615.jpg";
-		    // monsterImg.src = "https://i.pinimg.com/236x/36/15/26/361526ea77ef05d8746fc07a75c5f4ab--dragon-quest-limo.jpg";
-		    monsterImg.src = "https://cd6656c516b04052a08d8359f18eface.vfs.cloud9.us-east-2.amazonaws.com/image/teki.jpg";
-		    
-			//skill
+			monsterImg.src = monster.imagepath;
+			monsterLi.style.display = "block";
+			
 			//じゅもんを表示している箇所
-		    if(player.skill !== "なし" && player.skill !== null) {
+			//1体目(count=1)
+		    if(player.skill !== "なし" && player.skill !== null && count==1) {
+				//じゅもんリスト(<li>)を生成
+			    for(var i = 0, il = player.skill.length; i < il; i++) {
+			      var liItem = document.createElement('li');
+			      magicLi.appendChild(liItem);
+			      liItem.innerHTML = player.skill[i];
+			    }
+				magicLiItem = document.querySelectorAll('.magicLi > li');
+				console.log(magicLiItem);
+				console.log(magicLi);
+				magicLiItem[0].classList.add("cur"); //カーソル初期表示
+				//　マウスオーバーした時にカーソルを表示する
+			    for(var i = 0, il = magicLiItem.length; i < il; i++) {
+			      magicLiItem[i].addEventListener("mouseover", function() {
+			        for(var n = 0, nl = magicLiItem.length; n < nl; n++) {
+				        magicLiItem[n].classList.remove("cur");
+				      }
+				      this.classList.add("cur");
+				    }, false);
+				    (function(arg) {
+						//じゅもんにマウスオーバーして、クリックしてじゅもんを唱える時
+						console.log(arg);
+						console.log(player.skill[arg]);
+						magicLiItem[arg].addEventListener("click", function() {
+						player.turn = BattleLogic.turn(); //プレーヤーのターンかどうか
+				        monster.battleVal = BattleLogic.statusCheck();
+				        player.battleVal = BattleLogic.magic(player.skill[arg]); //magic:function()を実行。player.skill[arg]はじゅもん名
+				        messageView.style.display = "block";
+				        magicLi.style.display = "none"; //じゅもんリストを非表示
+				        that.mode(); //mode:function()を実行
+				      }, false);
+				    })(i);
+				}
+			//2体目以降(count>1)
+		    }else if(player.skill !== "なし" && player.skill !== null && count > 1) {
+					magicLi.textContent = null; 
+					console.log(magicLi);
 			    for(var i = 0, il = player.skill.length; i < il; i++) {
 			      var liItem = document.createElement('li');
 			      magicLi.appendChild(liItem);
@@ -77,21 +124,53 @@
 				      this.classList.add("cur");
 				    }, false);
 				    (function(arg) {
-					  //じゅもんにマウスオーバーして、クリックしてじゅもんを唱える時
-				      magicLiItem[arg].addEventListener("click", function() {
-				        player.turn = BattleLogic.turn(); //プレーヤーのターンかどうか
+						//じゅもんにマウスオーバーして、クリックしてじゅもんを唱える時
+						console.log(arg);
+						console.log(player.skill[arg]);
+						magicLiItem[arg].addEventListener("click", function() {
+						player.turn = BattleLogic.turn(); //プレーヤーのターンかどうか
 				        monster.battleVal = BattleLogic.statusCheck();
-				        player.battleVal = BattleLogic.magic(player.skill[arg]); //magic()　呼び出し箇所。
+				        player.battleVal = BattleLogic.magic(player.skill[arg]); //magic:function()を実行。player.skill[arg]はじゅもん名
 				        messageView.style.display = "block";
-				        magicLi.style.display = "none";
-				        that.mode();
+				        magicLi.style.display = "none"; //じゅもんリストを非表示
+				        that.mode(); //mode:function()を実行
 				      }, false);
 				    })(i);
 			    }
 		    }
 		    
-		    //item
-		    if(player.item) {
+			//どうぐリスト
+				//1体目
+		    if(player.item && count==1) {
+				//どうぐリスト(<li>)を生成
+			    for(var i = 0, il = player.item.length; i < il; i++) {
+			      var li = document.createElement('li');
+			      itemLi.appendChild(li);
+			      li.innerHTML = player.item[i];
+			    }
+			    itemLiItem = document.querySelectorAll('.itemLi > li');
+			    itemLiItem[0].classList.add("cur");
+			    for(var i = 0, il = itemLiItem.length; i < il; i++) {
+			      itemLiItem[i].addEventListener("mouseover", function() {
+			        for(var n = 0, nl = itemLiItem.length; n < nl; n++) {
+				        itemLiItem[n].classList.remove("cur");
+				      }
+				      this.classList.add("cur");
+				    }, false);
+				    (function(arg) {
+				      itemLiItem[arg].addEventListener("click", function() {
+				        player.turn = BattleLogic.turn();
+				        monster.battleVal = BattleLogic.statusCheck();
+				        player.battleVal = BattleLogic.item(player.item[arg], arg);	//player.item[arg]はアイテム名			            
+				        messageView.style.display = "block";
+				        itemLi.style.display = "none";
+				        that.mode();
+				      }, false);
+				    })(i);
+				}
+			//2体目以降
+		    }else if(player.item && count > 1) {
+				itemLi.textContent = null;
 			    for(var i = 0, il = player.item.length; i < il; i++) {
 			      var li = document.createElement('li');
 			      itemLi.appendChild(li);
@@ -112,13 +191,22 @@
 				        monster.battleVal = BattleLogic.statusCheck();
 				        player.battleVal = BattleLogic.item(player.item[arg], arg);				            
 				        messageView.style.display = "block";
-				        itemLi.style.display = "none";
+						itemLi.style.display = "none";
+						console.log('item');
 				        that.mode();
 				      }, false);
 				    })(i);
 			    }
 		    }
-		    
+			
+			/**
+			 * コマンド表示
+			 * 　・たたかう
+			 * 　・にげる
+			 * 　・じゅもん
+			 * 　・どうぐ
+			 */
+			//コマンドにポインタを合わせた時のカーソル表示
 		    for(var i = 0, il = commandItem.length; i < il; i++) {
 		      commandItem[i].addEventListener("mouseover", function() {
 		        for(var n = 0, nl = commandItem.length; n < nl; n++) {
@@ -131,44 +219,57 @@
 			  //　コマンド選択
 		      commandItem[i].addEventListener("click", function() {
 				// たたかうを選択
-		        if(this.classList.contains("battle") && battleMode == "command") {				            
+		        if(this.classList.contains("battle") && battleMode == "command") {	
+		        if(this.classList.contains("battle") ) {	
+					itemLi.style.display = "none";	
+					magicLi.style.display = "none";
+					messageView.style.display = "block";
 			        monster.battleVal = BattleLogic.statusCheck();
 			        player.battleVal = BattleLogic.attack();
 			        player.turn = BattleLogic.turn();
 			        battleMode = "battle";
 			        that.mode();
+					}
 				}
 				 //　にげるを選択
 		        if(this.classList.contains("escape") && battleMode == "command") {
+		        if(this.classList.contains("escape")) {
+				  messageView.style.display = "block";
 		          player.escape = BattleLogic.escape();			          
 		          monster.battleVal = BattleLogic.statusCheck();
 		          player.turn = BattleLogic.turn();
 		          battleMode = "escape";
 		          that.mode();
+					}
 				}
-			    // じゅもんを選択　（選択できるじゅもんがない時の処理も含まれている？）
+				// じゅもんを選択　（選択できるじゅもんがない時の処理も含まれている？）
+				// 2体目以降、カーソルを一度動かさないと、じゅもんリストからコマンド選択へ戻れない
 		        if(this.classList.contains("magic")) {
-			        if(battleMode == "command") {
-			          battleMode = "magic";
+					console.log(this.classList);
+			        if(battleMode == "command" && this.classList.length !==1 ) {
+					  battleMode = "magic";
+					  itemLi.style.display = "none";
 			          setTimeout(function() {
 			            messageView.style.display = "none";
-		              magicLi.style.display = "block";
+		              	magicLi.style.display = "block";
 		            },80);
 		          }
 		          if(battleMode == "magic" && magicLi.style.display == "block") {
 		            messageView.style.display = "block";
 		            magicLi.style.display = "none";
 			          battleMode = "command";
-			          messageView.innerHTML = "どうする?";
+					  messageView.innerHTML = "どうする?";
 		          }
 				}
 				//  どうぐを選択
+				// 2体目以降、カーソルを一度動かさないと、どうぐリストからコマンド選択へ戻れない
 		        if(this.classList.contains("item")) {
-			        if(battleMode == "command") {
-			          battleMode = "item";
+			        if(battleMode == "command" && this.classList.length !==1) {
+					magicLi.style.display = "none";
+			        battleMode = "item";
 			          setTimeout(function() {
 			            messageView.style.display = "none";
-					  itemLi.style.display = "block";
+					  	itemLi.style.display = "block";
 					  //どうぐがない時
 		              if(!itemLi.querySelector("li")) {
 			              messageView.innerHTML = "どうぐを もっていない。";
@@ -178,7 +279,7 @@
 		              }
 		            },80);
 				  }
-				  // どうぐがある時
+				//   どうぐリスト表示時
 		          if(battleMode == "item" && itemLi.style.display == "block") {
 		            messageView.style.display = "block";
 		            itemLi.style.display = "none";
@@ -214,9 +315,7 @@
 			    // global.dq.Sound.dead();
 				  messageView.innerHTML = "あなたは しにました。";
 				  commendBox.style.display = "none";
-				  //endWindow.classList.add("show");
-				  //ゲームオーバー画面に移動させる
-				  onLoad=setTimeout("location.href='https://cd6656c516b04052a08d8359f18eface.vfs.cloud9.us-east-2.amazonaws.com/game/gameover'",1000)
+				  endWindow.classList.add("show");
 			  }
 			  if(battleMode == "finish") {
 			    commendBox.style.display = "none";
@@ -227,9 +326,32 @@
 			    if(monster.hp <= 0) {
 			    //   global.dq.Sound.win();
 			      messageView.innerHTML = monster.name + "を たおした。";
-			      //endWindow.classList.add("show");
-			        //クリア画面に移動させる
-				  onLoad=setTimeout("location.href='https://cd6656c516b04052a08d8359f18eface.vfs.cloud9.us-east-2.amazonaws.com/game/clear'",1000)
+				//   endWindow.classList.add("show");
+					
+					// 経験値やアイテムゲットなどのイベントを設定する場合、このあたりに処理を書く。
+					
+
+					//
+					setTimeout(function() {
+						count += 1;
+						delete player.skill;
+						player.count=count;
+						//player.○○ = 値でplayerオブジェクトに値を持たせて、サーバーに送り返せる。
+						//サーバー側では、$request->○○で取り出せる。
+						//経験値やアイテムなどをここで計算して、サーバーに送って次のターンに持ち越す
+						AjaxPath = {
+							requestFile: "api/battle_again",
+							sendBattleData: player
+						  };
+						new AjaxConttoller();
+						battleMode = "command";
+						AjaxCtrl.requestFile(player);
+						// BattleCtrl.init();
+						// BattleLogic.init();
+						// BattleView.init(count);
+						commendBox.style.display = "block";
+			    		// monsterLi.style.display = "block";
+					},2000)
 			    }
 			  }
 			  if(battleMode == "escapeEnd") {
@@ -250,11 +372,13 @@
 			  } else if(battleDate.nextTurn == "monster" && battleDate.turnLength > 0) {
 				  BattleView.monsterMessage();
 			  } else {
+				  console.log(battleDate.nextTurn);
 				  battleMode = "command";
 				  this.mode();
 			  }
 		  },
 		  
+		  //プレーヤーの眠りステータスの管理
 		  playerStatusCheck: function() {
 		    var that = this;
   		  if(player.status == "ねむり") {
@@ -282,7 +406,9 @@
 		  },
 		  //モンスターが起こすアクションの表示
 		  monsterMessage: function() {
-		    var that = this;
+			var that = this;
+			console.log(monster.status);
+			console.log(monster.effectType);
 		    battleDate.nextTurn = "player";
 			  battleDate.turnLength -= 1;
 			  if(monster.status == "ねむり") {
@@ -358,7 +484,7 @@
 		      } else if(monster.effectType == 3) {
 		        //マホトーン
 		        // global.dq.Sound.magic();
-			      messageView.innerHTML = monster.name + "は " + monster.useEffect + "をとなえた。";
+			      messageView.innerHTML = monster.name + "は マホトーンをとなえた。";
 			      if(monster.disableMagic == true) {
 		          setTimeout(function() {
 			          messageView.innerHTML = monster.name + "の じゅもんは ふうじこまれている。";
@@ -384,7 +510,7 @@
 			      }
 		      } else if(monster.effectType == 4) {
 		        // global.dq.Sound.fire();
-		        messageView.innerHTML = monster.name + "は " + monster.useEffect + "を はい���������。";
+		        messageView.innerHTML = monster.name + "は " + monster.useEffect + "を はいた。";
 			      setTimeout(function() {
 			        // global.dq.Sound.damage();
 					    battleViewElem.classList.add("shock");
@@ -431,6 +557,7 @@
 			  }
 			  // たたかうを選択して攻撃した場合
 			  if(messageMode == "battle") {
+				  console.log(monster.status);
 			    // global.dq.Sound.attack();
   			  messageView.innerHTML = player.name + "の こうげき。";
   			  setTimeout(function() {
@@ -445,9 +572,12 @@
   				      BattleCtrl.mode();
   				      return;
 					}
+					console.log(battleDate.turnLength);
 					// ターン交代　
 					// ターンが一巡したらコマンド選択画面を表示
   			      if(battleDate.turnLength > 0) {
+					console.log('モンスターのターンに移行する')
+					console.log(battleDate.nextTurn);
   			        that.monsterMessage();
   			      } else {
   				      battleMode = "command";
@@ -491,7 +621,7 @@
   			      }
   			      if(player.effectType == 1) {
   			        // global.dq.Sound.damage();
-  			        monsterLi.classList.add("damage"); //?
+  			        monsterLi.classList.add("damage"); //? ダメージ受けた時のアニメーション？
   			        messageView.innerHTML = monster.name + "に " + player.battleVal[0] + "の ダメージをあたえた。";
   			        monster.hp = monster.hp - player.battleVal[0];
   			      }
@@ -513,21 +643,25 @@
   			      }
   			      if(player.effectType == 4) {
   			        messageView.innerHTML = "しかし なにも おこらなかった。";
-  			      }
+					}
+					console.log(player.mp);
+					console.log(player.battleVal[2]);
+					
   			      player.mp -= player.battleVal[2];
   			      that.statusChange();
   		      }
   		      setTimeout(function() { BattleCtrl.nextTurnCheck(); }, messageTime);
   		    }, messageTime);
 			  }
+			  //どうぐを使う時
 			  if(messageMode == "item") {
-  			  messageView.innerHTML = player.name + "は " + player.battleVal[1] + "を つかった。";
+  			  messageView.innerHTML = player.name + "は " + player.battleVal[1] + "を つかった。"; //どうぐ名。[effectVal,effect,0]のeffect。item:functionで設定している
   		    itemLi.removeChild(itemLiItem[player.useItemNum]); //使用したどうぐを表示から消す
   		    setTimeout(function() {
   		      if(player.effectType == 10) {
   			      player.hp += player.battleVal[0];
-  			      if(player.hp > player.maxHP) {
-  				      player.hp = player.maxHP;
+				if(player.hp > player.maxHP) {
+  				      player.hp = player.maxHP;　//maxHp以上回復しないようにしている	
   			      }
   			      messageView.innerHTML = player.name + "の HPが " + player.battleVal[0] + " かいふくした。";
   		      }
@@ -561,8 +695,13 @@
 		//battle logic　バトルロジック
     var battleLogic = function() {};
 		battleLogic.prototype = {
-		  init: function() {
-		    messageView.innerHTML = monster.name + "が あらわれた！";
+		  init: function(count) {
+			console.log(count);
+			if(count){
+				messageView.innerHTML = count + "体目の" + monster.name + "が あらわれた！";
+			}else{
+				messageView.innerHTML = monster.name + "が あらわれた！";
+			}
 		  },
 		  // たたかうで与えるダメージの計算ロジック
 		  attack: function() {
@@ -609,23 +748,30 @@
 			    }
 			    return 0;
 			  } else if(monster.skill) {
+				//   console.log('魔法唱えようとしている');
 				  return this.monsterMagic(); 
 			  } else {
+				//   console.log('monsterAttack()に入る');
 				  return this.monsterAttack();
 			  }
 		  },
 		  //モンスターが唱えるじゅもんの値設定ロジック
 		  monsterMagic: function() {　
-		    var monsterAtkVal,randomNum;		    		    
+			  var monsterAtkVal,randomNum;	
+			    		    
 		    for (var name in monster.skill) {
 		      //if(monster.effect.hasOwnProperty("ベホイミ")) {
 			      if((monster.skill[name] == "ベホイミ") && monster.hp < (monster.maxHP/3)) {
 				      randomNum = Random.getValue([{l:0, g: 86},{l:86, g: 192},{l:192, g: 256}]);
 					    if(randomNum == 0) {
-						    monsterAtkVal = recover("ベホイミ");
+							monsterAtkVal = recover("ベホイミ");
+			  				console.log(monsterAtkVal);
+							
 						    return monsterAtkVal;
 					    } else {
-					      monsterAtkVal = this.monsterAttack();
+						  monsterAtkVal = this.monsterAttack();
+			  				console.log(monsterAtkVal);
+						  
 					      return monsterAtkVal;
 					    }
 				    }  
@@ -633,21 +779,29 @@
 			      if((monster.skill[name] == "ホイミ") && monster.hp < (monster.maxHP/3)) {
 				      randomNum = Random.getValue([{l:0, g: 86},{l:86, g: 192},{l:192, g: 256}]);
 					    if(randomNum == 0) {
-						    monsterAtkVal = recover("ホイミ");
+							monsterAtkVal = recover("ホイミ");
+			  console.log(monsterAtkVal);
+							
 						    return monsterAtkVal;
 					    } else {
-					      monsterAtkVal = this.monsterAttack();
+						  monsterAtkVal = this.monsterAttack();
+			  console.log(monsterAtkVal);
+						  
 					      return monsterAtkVal;
 					    }
 				    }  
 		      //}
-			    if(monster.skill[name] == "���ラ") {
+			    if(monster.skill[name] == "ギラ") {
 				    randomNum = Random.getValue([{l:0, g: 106},{l:106, g: 192},{l:192, g: 256}]);
 					  if(randomNum == 0) {
 						  monsterAtkVal = magicAttack("ギラ");
+			  console.log(monsterAtkVal);
+
 						  return monsterAtkVal;
 					  } else {
-					    monsterAtkVal = this.monsterAttack();
+						monsterAtkVal = this.monsterAttack();
+			  console.log(monsterAtkVal);
+						
 					    return monsterAtkVal;
 					  }
 			    }
@@ -655,9 +809,13 @@
 				    randomNum = Random.getValue([{l:0, g: 86},{l:86, g: 192},{l:192, g: 256}]);
 					  if(randomNum == 0) {
 						  monsterAtkVal = magicAttack("ベキラマ");
+			  console.log(monsterAtkVal);
+
 						  return monsterAtkVal;
 					  } else {
-					    monsterAtkVal = this.monsterAttack();
+						monsterAtkVal = this.monsterAttack();
+			  console.log(monsterAtkVal);
+						
 					    return monsterAtkVal;
 					  }
 			    }
@@ -665,9 +823,13 @@
 		        randomNum = Random.getValue([{l:0, g: 86},{l:86, g: 192},{l:192, g: 256}]);
 					  if(randomNum == 0) {
 						  monsterAtkVal = magicSleep();
+			  console.log(monsterAtkVal);
+
 						  return monsterAtkVal;
 					  } else {
-					    monsterAtkVal = this.monsterAttack();
+						monsterAtkVal = this.monsterAttack();
+			  console.log(monsterAtkVal);
+						
 					    return monsterAtkVal;
 					  }
 			      //monster.effectType = 2; 
@@ -680,9 +842,13 @@
 		        }
 					  if(randomNum == 0) {
 						  monsterAtkVal = disableMagic();
+			  console.log(monsterAtkVal);
+
 						  return monsterAtkVal;
 					  } else {
-					    monsterAtkVal = this.monsterAttack();
+						monsterAtkVal = this.monsterAttack();
+			  console.log(monsterAtkVal);
+						
 					    return monsterAtkVal;
 					  }
 		      }
@@ -690,9 +856,13 @@
 		        randomNum = Random.getValue([{l:0, g: 136},{l:136, g: 192},{l:192, g: 256}]);
 					  if(randomNum == 0) {
 						  monsterAtkVal = fireAttack("ひのいき");
+			  console.log(monsterAtkVal);
+
 						  return monsterAtkVal;
 					  } else {
-					    monsterAtkVal = this.monsterAttack();
+						monsterAtkVal = this.monsterAttack();
+			  console.log(monsterAtkVal);
+						
 					    return monsterAtkVal;
 					  }
 		      }
@@ -700,13 +870,17 @@
 		        randomNum = Random.getValue([{l:0, g: 136},{l:136, g: 192},{l:192, g: 256}]);
 					  if(randomNum == 0) {
 						  monsterAtkVal = fireAttack("はげしいほのお");
+			  console.log(monsterAtkVal);
+
 						  return monsterAtkVal;
 					  } else {
-					    monsterAtkVal = this.monsterAttack();
+						monsterAtkVal = this.monsterAttack();
+			  console.log(monsterAtkVal);
+						
 					    return monsterAtkVal;
 					  }
-		      }
-		      monsterAtkVal = this.monsterAttack();
+			  }
+			  monsterAtkVal = this.monsterAttack();
 			}
 			
 			//monter.effectType 0=回復系,1=ダメージ系,2=眠り系,3=じゅもん封じ込め系,4=ボスのじゅもん？
@@ -743,10 +917,10 @@
 			      randomNum = Random.getValue([{l:0, g: 16},{l:16, g: 52},{l:52, g: 116},{l:116, g: 176},{l:176, g: 210},{l:210, g: 236},{l:236, g: 256}]);
 				    effectVal = 30 + randomNum;
 				    monster.useEffect = "ベキラマ";
-			    }
+				}
+				monster.status = "こうげき";
 			    return effectVal;
 		    }
-			
 			
 		    function magicSleep() {
 		      monster.effectType = 2;
@@ -788,6 +962,9 @@
 		  //　返り値は[effectVal,effect,UseMp]  effectValは、(じゅもん固有の数値 + rabdumNum )　effectがじゅもん名
 		  //player.effectTypeを書き変える effectType 0=回復系,1=ダメージ系,2=眠り系,3=じゅもん封じ込め系,4=無効
 		  magic: function(effect) {
+			  console.log('呪文唱えた');
+			console.log('magic()の引数effect');
+			console.log(effect);
 		    var effectVal, //実際にHPから差し引かれるダメージの値がこれ
 		        useMp,
 		        randomNum;
@@ -867,7 +1044,9 @@
 		    if(effect == "トヘロス") { useMp = 2; }
 		    if(effect == "レミーラ" || effect == "リレミト" || effect == "ルーラ" || effect == "トヘロス") {
 		      player.effectType = 4;
-		    }
+			}
+			console.log('返り値');
+			console.log([effectVal, effect, useMp])
 		    return [effectVal, effect, useMp];
 		  },
 		  
@@ -902,19 +1081,19 @@
 		        randomNum;
 		    this.playerStatusCheck();
 		    if(itemVal == "やくそう" && player.status !== "ねむり") {
-		      effect = "やくそう";
-		      player.useItemNum = arg;
-		      player.effectType = 10;
-		      randomNum = this.getStandardRandom(0,7);
-		      effectVal = 23 + randomNum;
+		      effect = "やくそう"; 
+			  player.useItemNum = arg; //どうぐリストから該当アイテムを表示しないように削除する時に必要
+		      player.effectType = 10; //10は回復系
+		      randomNum = this.getStandardRandom(0,7); 
+		      effectVal = 23 + randomNum; //回復する数値はこれ
 		    } else {
 			    effectVal = 0;
 			    effect = null;
 		    }
-		    return [effectVal,effect,0];;
+		    return [effectVal,effect,0];
 		  },
 		  
-		  // タ���� turn()　先攻/後攻を決めている？
+		  // ターン turn()　先攻/後攻を決めている？
 		  turn: function() {
 		    var randomNum = Random.getValue(),
 		        standardRandomNum = Math.round(this.getStandardRandom(0,63));		    
@@ -933,79 +1112,6 @@
 		  }
 		};
 		
-		//   //SoundController 
-  //  SoundController = function() {};
-		// SoundController.prototype = {
-		//   init: function() {
-		//     var that = this;
-		        
-		//     that.audioList = {
-		// 	    "sound00": new Audio("app/sound/click.mp3"),
-		// 	    "sound01": new Audio("app/sound/magic.mp3"),
-		// 	    "sound02": new Audio("app/sound/attack.mp3"),
-		// 	    "sound03": new Audio("app/sound/win.mp3"),
-		// 	    "sound04": new Audio("app/sound/dead.mp3"),
-		// 	    "sound05": new Audio("app/sound/fire.mp3"),
-		// 	    "sound06": new Audio("app/sound/damage.mp3")
-		//     };
-		    		    
-		// 	  var clickElms,
-		// 	      clickTargetClass = ['.configView > .sttngIco', '.configLi > li', '.inputStrLi > li', '.startBtn', '.monsterSelect option', '.commendLi > li'];
-		// 	  for (var name in clickTargetClass) {
-		// 	    if (clickTargetClass.hasOwnProperty(name)) {
-		// 	      clickElms = document.querySelectorAll(clickTargetClass[name]);		      
-		// 	      that.setClickSound(clickElms);
-		// 	    }
-		// 	  }   
-		//   },
-		  
-		//   setClickSound: function(elem) {
-		//     var that = this;
-		//     for(var i = 0, il = elem.length; i < il; i++) {
-		// 	    elem[i].addEventListener("click", function(){
-		// 		    that.audioList["sound00"].play();
-		// 	    }, false);
-		// 	  }
-		// 	  return;
-		//   },
-		  
-		//   click: function() {
-		// 	  this.audioList["sound00"].play();
-		// 	  return;
-		//   },
-		  
-		//   magic: function() {
-		// 	  this.audioList["sound01"].play();
-		// 	  return;
-		//   },
-		  
-		//   attack: function() {
-		// 	  this.audioList["sound02"].play();
-		// 	  return;
-		//   },
-		  
-		//   win: function() {
-		// 	  this.audioList["sound03"].play();
-		// 	  return;
-		//   },
-		  
-		//   dead: function() {
-		// 	  this.audioList["sound04"].play();
-		// 	  return;
-		//   },
-		  
-		//   fire: function() {
-		// 	  this.audioList["sound05"].play();
-		// 	  return;
-		//   },
-		  
-		//   damage: function() {
-		// 	  this.audioList["sound06"].play();
-		// 	  return;
-		//   }
-		  
-  //  }
-		
 		//Ajax Controller
 		var AjaxConttoller = function(){};
 		AjaxConttoller.prototype = {
@@ -1016,6 +1122,7 @@
       },
 	 
 	//GETパラメータを取得
+	//POSTに変更した為、使用せず
      getQueryString: function() {
 		   if( 1 < window.location.search.length ) {
 			   var query = window.location.search.substring( 1 ),
@@ -1026,7 +1133,7 @@
 			         paramName = decodeURIComponent(element[0]),
 			         paramValue = decodeURIComponent(element[1]);
 			         
-			     result[paramName] = decodeURIComponent(paramValue);   
+			     result[paramName] = decodeURIComponent(paramValue);
 			   }
 			   console.log(result);
 			   this.requestFile(result);
@@ -1034,7 +1141,8 @@
 			 return null; //?
 		 },
 
-     requestFile: function(result) {
+	//非同期通信(api)
+     requestFile: function(status) {
         var httpObj = AjaxConttoller.prototype.createHttpRequest(),
             jsonDataObj, weapon, shield, armor, useitem,
             commendTtl = document.querySelector('.commend .commendTtl');
@@ -1042,39 +1150,48 @@
             timer = setTimeout(function() {
               timeout = true;
               httpObj.abort();
-             }, 10000);
-             console.log(result);
-        httpObj.open("GET", AjaxPath.requestFile+"?monster=" + result["monster"] + "&lv=" + result["lv"] + "&weapon=" + result["weapon"] + "&armor=" + result["armor"] + "&shield=" + result["shield"] + "&useItem=" + result["useitem"] + "&player=" + result["player"], true);
-        httpObj.setRequestHeader( 'Content-Type', 'application/x-www-form-urlencoded');
+			 }, 10000);
+		var element = document.getElementById('csrf_token');
+        // httpObj.open("GET", AjaxPath.requestFile+"?monster=" + result["monster"] + "&lv=" + result["lv"] + "&weapon=" + result["weapon"] + "&armor=" + result["armor"] + "&shield=" + result["shield"] + "&useItem=" + result["useitem"] + "&player=" + result["player"], true);
+        httpObj.open("POST", AjaxPath.requestFile, true);
+		// httpObj.setRequestHeader( 'Content-Type', 'application/x-www-form-urlencoded');
+		httpObj.setRequestHeader( 'Content-Type', 'application/json');
+		httpObj.setRequestHeader( 'X-CSRF-Token', element.content); //CSRFトークン。cloud9上での動作要検証。
+		// httpObj.send('count='+count);
+		httpObj.send(JSON.stringify(status));
         httpObj.onreadystatechange = function() {
           if(httpObj.readyState !== 4) {
             return;
           }
           if(timeout) return;
           clearTimeout(timer);
-          console.log(httpObj.status);
           if(httpObj.status == 200) {
             jsonDataObj = JSON.parse(this.responseText);
-            player = jsonDataObj.player;　//homecontroller　function jsonのplayer部分
+            player = jsonDataObj.player;
             monster = jsonDataObj.monster;
             weapon = jsonDataObj.weapon;
             shield = jsonDataObj.shield;
             armor = jsonDataObj.armor;
-            useitem = jsonDataObj.useitem;
-            console.log(useitem);
+			useitem = jsonDataObj.useitem;
+
+			// json_response = jsonDataObj.json_response;
             
             player.hp = parseInt(player.maxHP, 10);
-            player.speed = parseInt(player.speed, 10);
             player.sprit = parseInt(player.sprit, 10);
-            player.effectSuccess = false;
+			player.effectSuccess = false;
+			console.log(player.skill);
             if(player.skill !== null) {
-	            player.skill = player.skill.split(","); //split() = explode() カンマ区切りの文字列を配列に直してる。jsonで渡す時点で配列じゃダメだったのか
+				console.log(player.skill);
+	            player.skill = player.skill.split(","); //split() = PHPではexplode()に当たる。 カンマ区切りの文字列を配列に直している。
 			}
+			console.log(player.skill);
             player.atk = parseInt((player.atk),10) + parseInt((weapon.atk),10);
-            player.def = parseInt((player.def),10) + parseInt((armor.def),10) + parseInt((shield.def),10); 
+			player.def = parseInt((player.def),10) + parseInt((armor.def),10) + parseInt((shield.def),10); 
+			//経験値など設定するのであればここでセットする
+			//player.exp = parseInt(player.exp),10);
             if(player.skill !== null && player.skill !== "なし") {
-	            monster.skill = monster.skill.split(",");  //split() = explode() カンマ区切りの文字列を配列に直してる。jsonで渡す時点で配列じゃダメだったのか
-            }
+	            monster.skill = monster.skill.split(",");  
+            } //プレイヤーにスキルを設定すると、モンスターにもスキルを設定するようになっている？モンスターのスキルはサーバーから渡さない限り設定される箇所がない？
             commendTtl.innerHTML = player.name;
             
             monster.id = parseInt(monster.id, 10);
@@ -1082,10 +1199,13 @@
             monster.atk = parseInt(monster.atk, 10);
             monster.def = parseInt(monster.def, 10);
             
-            monster.weaknessType1 = parseInt(monster.weaknessType1,10);
-            monster.weaknessType2 = parseInt(monster.weaknessType2,10);
-            monster.weaknessType3 = parseInt(monster.weaknessType3,10);
+            monster.weaknessType1 = parseInt(monster.weaknessType1,10); //使っていない？
+            monster.weaknessType2 = parseInt(monster.weaknessType2,10); //0~4 ラリホー 数字が小さいほど、呪文にかかる確率が上がる
+			monster.weaknessType3 = parseInt(monster.weaknessType3,10); //0~4　マホトーン　数字が小さいほど、呪文にかかる確率が上がる
+			
+			monster.imagepath = monster.image;
  
+			//やくそう以外のアイテムを設定する場合、player.itemに要素を追加する。
             if(useitem.len > 0 ) {
 	            player.item = [];
 	            for(var i = 0, il = useitem.len; i < il; i++) {
@@ -1095,18 +1215,20 @@
             
             battleViewElem.style.display = "block";        
             BattleCtrl.init();
-            BattleLogic.init();
+            BattleLogic.init(count);
             BattleView.init();
           }
         }        
-        httpObj.send("?monster=" + result["monster"] + "&lv=" + result["lv"] + "&weapon=" + result["weapon"] + "&armor=" + result["armor"] + "&shield=" + result["shield"] + "&useItem=" + result["useitem"] + "&player=" + result["player"]);
+        // httpObj.send("?monster=" + result["monster"] + "&lv=" + result["lv"] + "&weapon=" + result["weapon"] + "&armor=" + result["armor"] + "&shield=" + result["shield"] + "&useItem=" + result["useitem"] + "&player=" + result["player"]);
         // httpObj.send(null);
         return;
       }
 		};
 		
 		var AjaxCtrl = new AjaxConttoller();
-		    AjaxCtrl.getQueryString();
+			// AjaxCtrl.getQueryString();
+			AjaxCtrl.requestFile();
+			
 		
 		var BattleCtrl = new battleController(),
 		    BattleLogic = new battleLogic(),

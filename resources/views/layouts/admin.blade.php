@@ -77,9 +77,7 @@
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('messages.Logout') }}
                                     </a>
-                                     <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                     <a class="dropdown-item" href="https://young-coast-18447.herokuapp.com/profile/create">
                                         {{ __('プロフィール編集') }}
                                     </a>
                                     
