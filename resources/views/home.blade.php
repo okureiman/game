@@ -12,7 +12,7 @@
                 <img src="{{ asset ('/image/title_convert_20200430121826.jpg') }}" class="start">
                 　<div align="center">
                <input type="button" onclick="location.href='https://young-coast-18447.herokuapp.com/game/method'" value="遊び方">
-               <input type="button" onclick="location.href='https://cd6656c516b04052a08d8359f18eface.vfs.cloud9.us-east-2.amazonaws.com/game/battle?monster=&lv=&weapon=&armor=&shield=&useItem=&player='" value="ゲーム開始">
+               <input type="button" onclick="location.href='https://young-coast-18447.herokuapp.com/game/battle?monster=&lv=&weapon=&armor=&shield=&useItem=&player='" value="ゲーム開始">
                <div align="right">
                <audio src="{{ asset('/bgm/game_maoudamashii_3_theme01.mp3') }}" controls></audio>
                     </div>
