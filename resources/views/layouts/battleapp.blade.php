@@ -4,7 +4,7 @@
       <meta charset="utf-8">
       <link rel="stylesheet" href="{{ secure_asset('/css/demo.css') }}" type="text/css" media="screen" charset="utf-8" />
       <link rel="stylesheet" href="{{ secure_asset('/css/style.css') }}" type="text/css" />
-      <script type="text/javascript" src="{{ secure_asset('/js/battle.js')}}"></script>
+      <script type="text/javascript" src="{{ secure_asset('/js/battle2.js')}}"></script>
     </head>
     <body>
       @yield('content') 
