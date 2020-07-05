@@ -80,8 +80,6 @@
                                      <a class="dropdown-item" href="https://young-coast-18447.herokuapp.com/profile/create">
                                         {{ __('プロフィール編集') }}
                                     </a>
-                                    
-                                    
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf

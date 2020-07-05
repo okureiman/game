@@ -21,8 +21,7 @@ Route::get('/', 'HomeController@index')->name('home');
     Route::get('game/clear', 'GameController@clear');
     
     Route::get('game/battle', 'HomeController@battle')->name('battle');
-    Route::post('game/api/battle', 'HomeController@json'); //getからpostに変更
-    Route::post('game/api/battle_again', 'HomeController@json_again'); //game?
+    Route::get('game/api/battle', 'HomeController@json');
 
 //プロフィール
 
