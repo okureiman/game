@@ -1041,3 +1041,4 @@
   };
 document.addEventListener("DOMContentLoaded", battle, false);
 })(this);
+
