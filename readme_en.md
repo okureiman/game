@@ -46,11 +46,11 @@ This is a Dragon Quest style combat game.
 
 ## Login Screen
 
-![login]()
+![login](https://user-images.githubusercontent.com/60533591/86580530-d153b380-bfb9-11ea-97b8-aabfde159003.png)
 
 ## Game Screen
 
-![game]()
+![game](https://user-images.githubusercontent.com/60533591/86579924-ebd95d00-bfb8-11ea-97df-dfa9c3f369db.png)
 
 ## management screen
 
