@@ -56,7 +56,7 @@
 		    //モンスターの画像
 		    // monsterImg.src = "https://news.walkerplus.com/article/205022/1259246_615.jpg";
 		    // monsterImg.src = "https://i.pinimg.com/236x/36/15/26/361526ea77ef05d8746fc07a75c5f4ab--dragon-quest-limo.jpg";
-		    monsterImg.src = "https://cd6656c516b04052a08d8359f18eface.vfs.cloud9.us-east-2.amazonaws.com/image/teki.jpg";
+		    // monsterImg.src = "https://cd6656c516b04052a08d8359f18eface.vfs.cloud9.us-east-2.amazonaws.com/image/teki.jpg";
 		    
 			//skill
 			//じゅもんを表示している箇所
